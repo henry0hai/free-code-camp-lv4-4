@@ -1,9 +1,8 @@
-const { getUserById, getAllUsers } = require('./users');
+const { getUserById } = require('./users');
 
 let exercises = [];
 
 function createExercise(_id, description, duration, date) {
-  console.log("all user: ", getAllUsers());
   const user = getUserById(_id);
   if (!user) {
     throw new Error('User not found');
@@ -28,4 +27,8 @@ function createExercise(_id, description, duration, date) {
   return exercise;
 }
 
-module.exports = { createExercise };
+function getExercises() {
+  return exercises;
+}
+
+module.exports = { createExercise, getExercises };

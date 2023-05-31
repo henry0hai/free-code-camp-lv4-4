@@ -14,6 +14,7 @@ const {
 } = require('./users');
 
 const { createExercise } = require('./exercise');
+const { getLogs } = require('./logs');
 
 
 // Middleware
@@ -82,6 +83,24 @@ app.post('/api/users/:_id/exercises', (req, res) => {
     );
     res.status(201).json(exercise);
   } catch (error) {
+    console.error("exercises error: ", exercises);
+    res.status(400).send(error.message);
+  }
+});
+
+// Logs
+app.get('/api/users/:_id/logs', (req, res) => {
+  try {
+    const logs = getLogs(
+      req.params._id,
+      req.query.from,
+      req.query.to,
+      req.query.limit
+    );
+    console.log("logs: ", logs);
+    res.json(logs);
+  } catch (error) {
+    console.error("getLogs error: ", error);
     res.status(400).send(error.message);
   }
 });
